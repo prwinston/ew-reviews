@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reflections · Emotionally Whole</title>
+<meta name="description" content="Reflections from readers of Emotionally Whole: From the Mirror to the Door, and from those who have walked through the seminar." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E7;      /* warm light — the room */
+    --paper-2:#EFE7D6;    /* raised surface / rows */
+    --ink:#22302E;        /* deep teal-slate — the mirror; primary text */
+    --ink-soft:#6B6455;   /* muted warm text */
+    --line:#DDD0B7;       /* warm hairline */
+    --door:#B4813A;       /* honeyed doorway light — accent */
+    --door-deep:#8A5E22;  /* accent for small text on paper (contrast-safe) */
+    --mirror:#35514C;     /* deep teal for secondary marks */
+    --danger:#9B3B2E;     /* muted brick for destructive admin action */
+    --radius:10px;
+    --maxw:940px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-optical-sizing:auto;
+    font-size:19px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:rgba(180,129,58,.22)}
+  a{color:var(--door-deep)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- Hero: the doorway ---------- */
+  .hero{position:relative;overflow:hidden;text-align:center;padding:76px 24px 48px}
+  .hero .doorway{
+    position:absolute;left:50%;top:-6%;transform:translateX(-50%);
+    width:300px;height:120%;
+    background:
+      radial-gradient(60% 45% at 50% 8%, rgba(180,129,58,.34), rgba(180,129,58,0) 70%),
+      linear-gradient(180deg, rgba(180,129,58,.20), rgba(180,129,58,.02) 62%, rgba(180,129,58,0));
+    filter:blur(6px);
+    opacity:0;
+    animation:glow 2.2s ease-out .15s forwards;
+    pointer-events:none;z-index:0;
+  }
+  @keyframes glow{to{opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .hero .doorway{animation:none;opacity:1} }
+  .hero > *{position:relative;z-index:1}
+  .kicker{
+    font-family:"Newsreader",serif;font-style:italic;font-size:1.05rem;
+    color:var(--door-deep);margin:0 0 14px;letter-spacing:.01em;
+  }
+  h1.title{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:clamp(2.6rem,8vw,4.6rem);line-height:.98;letter-spacing:-.015em;
+    margin:0;color:var(--ink);
+  }
+  .subtitle{
+    font-family:"Fraunces",serif;font-weight:400;font-style:italic;
+    font-size:clamp(1.05rem,3.4vw,1.5rem);color:var(--mirror);
+    margin:14px 0 0;
+  }
+  .invite{max-width:34rem;margin:26px auto 0;color:var(--ink-soft);font-size:1.05rem}
+
+  /* thin threshold rule under the hero */
+  .threshold{max-width:var(--maxw);margin:8px auto 0;height:1px;
+    background:linear-gradient(90deg,transparent, var(--line) 18%, var(--line) 82%, transparent)}
+
+  section{padding:52px 0}
+  h2{
+    font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.5rem,4vw,2rem);
+    letter-spacing:-.01em;margin:0 0 6px;
+  }
+  .lead{color:var(--ink-soft);margin:0 0 26px;max-width:38rem}
+
+  /* ---------- Form ---------- */
+  .card{
+    background:var(--paper-2);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px;
+  }
+  .field{margin-bottom:18px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-family:"Fraunces",serif;font-weight:500;font-size:1rem;margin:0 0 7px}
+  .hint{color:var(--ink-soft);font-size:.9rem;margin:6px 0 0}
+  input[type=text], textarea{
+    width:100%;font-family:"Newsreader",serif;font-size:1.02rem;color:var(--ink);
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;line-height:1.5;
+  }
+  textarea{min-height:132px;resize:vertical}
+  input[type=text]:focus, textarea:focus{
+    outline:none;border-color:var(--door);
+    box-shadow:0 0 0 3px rgba(180,129,58,.18);
+  }
+  .row-2{display:grid;grid-template-columns:1fr;gap:18px}
+  .counter{color:var(--ink-soft);font-size:.85rem;text-align:right;margin-top:6px}
+  .submit-row{display:flex;align-items:center;gap:16px;margin-top:22px;flex-wrap:wrap}
+  button{
+    font-family:"Newsreader",serif;font-size:1rem;cursor:pointer;
+    border:1px solid transparent;border-radius:8px;transition:background .15s,border-color .15s,color .15s,opacity .15s;
+  }
+  .btn-primary{
+    background:var(--ink);color:var(--paper);padding:12px 24px;font-weight:500;letter-spacing:.005em;
+  }
+  .btn-primary:hover{background:var(--mirror)}
+  .btn-primary:disabled{opacity:.5;cursor:default}
+  .form-note{color:var(--mirror);font-size:.95rem;font-style:italic}
+
+  /* ---------- Reviews table ---------- */
+  .reviews-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  .count{color:var(--ink-soft);font-size:.98rem}
+  table.reviews{width:100%;border-collapse:collapse}
+  table.reviews thead th{
+    font-family:"Fraunces",serif;font-weight:500;font-size:.95rem;color:var(--mirror);
+    text-align:left;padding:0 16px 12px;border-bottom:1.5px solid var(--door);
+    white-space:nowrap;
+  }
+  table.reviews thead th.col-date{width:130px}
+  table.reviews thead th.col-name{width:170px}
+  table.reviews thead th.col-actions{width:170px;text-align:right}
+  table.reviews tbody td{
+    padding:18px 16px;border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  td.c-date{color:var(--ink-soft);font-size:.92rem;white-space:nowrap}
+  td.c-name{font-family:"Fraunces",serif;font-weight:500;font-size:1.02rem}
+  td.c-comment{color:var(--ink);line-height:1.62}
+  tr.is-hidden{opacity:.55}
+  .tag-hidden{
+    display:inline-block;font-family:"Newsreader",serif;font-style:italic;font-size:.8rem;
+    color:var(--mirror);border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin-left:8px;
+    vertical-align:middle;
+  }
+  td.c-actions{text-align:right;white-space:nowrap}
+  .link-btn{
+    background:none;border:none;font-family:"Newsreader",serif;font-size:.92rem;
+    color:var(--door-deep);padding:4px 6px;text-decoration:underline;text-underline-offset:2px;
+  }
+  .link-btn:hover{color:var(--ink)}
+  .link-btn.danger{color:var(--danger)}
+  .edit-area{width:100%;min-height:96px;margin-bottom:8px}
+  .edit-controls{display:flex;gap:10px;justify-content:flex-end}
+
+  /* states */
+  .state{padding:36px 16px;text-align:center;color:var(--ink-soft)}
+  .state.empty{border:1px dashed var(--line);border-radius:var(--radius);font-style:italic}
+
+  /* banner (preview mode / errors) */
+  .banner{
+    border:1px solid var(--door);background:rgba(180,129,58,.10);
+    border-radius:var(--radius);padding:14px 18px;margin:0 0 26px;
+    color:var(--ink);font-size:.98rem;
+  }
+  .banner strong{font-family:"Fraunces",serif;font-weight:600}
+  .banner.hidden{display:none}
+
+  /* toast */
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--paper);padding:13px 22px;border-radius:999px;
+    font-size:.98rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50;
+    box-shadow:0 8px 24px rgba(34,48,46,.22);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* footer + admin */
+  footer{padding:40px 0 60px;border-top:1px solid var(--line);margin-top:20px;color:var(--ink-soft);font-size:.92rem}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .admin-panel{margin-top:18px;display:none}
+  .admin-panel.open{display:block}
+  .admin-panel form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .admin-panel input[type=password]{
+    font-family:"Newsreader",serif;font-size:.98rem;padding:9px 12px;border:1px solid var(--line);
+    border-radius:8px;background:var(--paper);color:var(--ink);min-width:220px;
+  }
+  .admin-panel input:focus{outline:none;border-color:var(--door);box-shadow:0 0 0 3px rgba(180,129,58,.18)}
+  .btn-ghost{background:var(--paper-2);border:1px solid var(--line);color:var(--ink);padding:9px 18px}
+  .btn-ghost:hover{border-color:var(--door)}
+  .admin-msg{font-style:italic;color:var(--mirror);font-size:.92rem}
+  .admin-live{color:var(--door-deep);font-family:"Fraunces",serif;font-weight:500}
+
+  /* ---------- Mobile: table becomes cards ---------- */
+  @media (max-width:660px){
+    body{font-size:18px}
+    section{padding:40px 0}
+    table.reviews thead{display:none}
+    table.reviews, table.reviews tbody, table.reviews tr, table.reviews td{display:block;width:100%}
+    table.reviews tr{
+      border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:16px;
+      background:var(--paper-2);
+    }
+    table.reviews tbody td{border:none;padding:2px 0}
+    td.c-name{font-size:1.1rem;margin-bottom:2px}
+    td.c-date{margin-bottom:10px}
+    td.c-comment{margin-top:2px}
+    td.c-actions{text-align:left;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+    td.c-actions .link-btn{padding-left:0}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="doorway" aria-hidden="true"></div>
+    <p class="kicker">Reflections on the journey</p>
+    <h1 class="title">Emotionally Whole</h1>
+    <p class="subtitle">From the Mirror to the Door</p>
+    <p class="invite">
+      If the book met you somewhere, or the seminar opened a door you didn't
+      expect &mdash; leave a few words. Your reflection may be the light that
+      helps the next reader step through.
+    </p>
+  </header>
+  <div class="threshold" aria-hidden="true"></div>
+
+  <main class="wrap">
+
+    <!-- ===================== SHARE FORM ===================== -->
+    <section id="share" aria-labelledby="share-h">
+      <h2 id="share-h">Share your reflection</h2>
+      <p class="lead">
+        Whether you've read <em>Emotionally Whole</em> or walked through the
+        seminar, your honest words are welcome here.
+      </p>
+
+      <div class="card">
+        <div class="row-2">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" maxlength="80" autocomplete="name"
+                   placeholder="How you'd like to be known" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="comment">Your reflection</label>
+          <textarea id="comment" name="comment" maxlength="1500"
+                    placeholder="What did the book or the seminar stir in you?"></textarea>
+          <div class="counter"><span id="count">0</span> / 1500</div>
+        </div>
+        <div class="submit-row">
+          <button type="button" class="btn-primary" id="submitBtn">Share your reflection</button>
+          <span class="form-note" id="formNote"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== REVIEWS ===================== -->
+    <section id="reviews" aria-labelledby="reviews-h">
+      <div class="reviews-head">
+        <h2 id="reviews-h">What readers &amp; attendees are saying</h2>
+        <span class="count" id="reviewCount"></span>
+      </div>
+
+      <div class="banner hidden" id="banner"></div>
+
+      <div id="reviewsHost">
+        <div class="state" id="loadingState">Gathering reflections&hellip;</div>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER / ADMIN ===================== -->
+    <footer>
+      <div class="foot-row">
+        <span>Emotionally Whole &middot; Winston Chew</span>
+        <button type="button" class="link-btn" id="adminToggle" aria-expanded="false">Admin</button>
+      </div>
+      <div class="admin-panel" id="adminPanel">
+        <form id="adminForm" autocomplete="off">
+          <input type="password" id="adminKey" placeholder="Admin passcode" aria-label="Admin passcode" />
+          <button type="submit" class="btn-ghost">Unlock moderation</button>
+          <button type="button" class="btn-ghost" id="adminLock" style="display:none">Lock</button>
+          <span class="admin-msg" id="adminMsg"></span>
+        </form>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   Emotionally Whole — Reviews
+   ---------------------------------------------------------------------
+   1) Deploy Code.gs as a Google Apps Script Web App (see SETUP.md)
+   2) Paste your Web App /exec URL below.
+   Leave it blank to run in Preview mode (reflections saved on this screen
+   only, so you can try every feature before going live).
+   ===================================================================== */
+const CONFIG = {
+  endpoint: "",          // <-- paste your Apps Script /exec URL here
+  maxComment: 1500
+};
+
+/* ---------- small helpers ---------- */
+const $ = (id) => document.getElementById(id);
+let ADMIN_KEY = null;                 // set once moderation is unlocked
+let DEMO = !CONFIG.endpoint;          // preview mode when no endpoint
+let demoData = DEMO ? seedDemo() : [];
+
+function fmtDate(iso){
+  const d = new Date(iso);
+  if (isNaN(d)) return "";
+  return d.toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"});
+}
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove("show"), 2600);
+}
+function showBanner(html){ const b=$("banner"); b.innerHTML=html; b.classList.remove("hidden"); }
+
+/* ---------- JSONP transport (no CORS, works from any static host) ---------- */
+function call(params){
+  return new Promise((resolve, reject)=>{
+    if (DEMO) return reject({code:"demo"});
+    const cb = "ewcb_" + Math.random().toString(36).slice(2);
+    const s = document.createElement("script");
+    const to = setTimeout(()=>{ cleanup(); reject({code:"timeout"}); }, 15000);
+    function cleanup(){ delete window[cb]; if (s.parentNode) s.parentNode.removeChild(s); clearTimeout(to); }
+    window[cb] = (data)=>{ cleanup(); resolve(data); };
+    const qs = Object.entries(params)
+      .map(([k,v]) => encodeURIComponent(k) + "=" + encodeURIComponent(v==null ? "" : v))
+      .join("&");
+    s.onerror = ()=>{ cleanup(); reject({code:"network"}); };
+    s.src = CONFIG.endpoint + (CONFIG.endpoint.includes("?") ? "&" : "?") + qs + "&callback=" + cb;
+    document.head.appendChild(s);
+  });
+}
+
+/* ===================== LOAD & RENDER ===================== */
+async function loadReviews(){
+  const host = $("reviewsHost");
+  if (DEMO){ renderReviews(sortDesc(visibleFor(demoData))); return; }
+  host.innerHTML = '<div class="state" id="loadingState">Gathering reflections&hellip;</div>';
+  try{
+    const res = await call({ action:"list", admin: ADMIN_KEY || "" });
+    if (res && res.ok){ renderReviews(res.reviews || []); }
+    else { host.innerHTML = '<div class="state">We couldn\'t load reflections just now. Please refresh in a moment.</div>'; }
+  }catch(err){
+    host.innerHTML = '<div class="state">We couldn\'t reach the reflections. Check your connection and refresh.</div>';
+  }
+}
+
+function renderReviews(list){
+  const host = $("reviewsHost");
+  const isAdmin = !!ADMIN_KEY;
+  const shown = list.filter(r => isAdmin || !r.hidden);
+  $("reviewCount").textContent = shown.length
+    ? shown.length + (shown.length === 1 ? " reflection" : " reflections")
+    : "";
+
+  if (!list.length){
+    host.innerHTML = '<div class="state empty">No reflections yet &mdash; be the first to share what the journey stirred in you.</div>';
+    return;
+  }
+
+  const table = document.createElement("table");
+  table.className = "reviews";
+
+  const thead = document.createElement("thead");
+  const htr = document.createElement("tr");
+  htr.appendChild(th("Date","col-date"));
+  htr.appendChild(th("Name","col-name"));
+  htr.appendChild(th("Reflection",""));
+  if (isAdmin) htr.appendChild(th("","col-actions"));
+  thead.appendChild(htr);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  list.forEach(r => tbody.appendChild(reviewRow(r, isAdmin)));
+  table.appendChild(tbody);
+
+  host.innerHTML = "";
+  host.appendChild(table);
+}
+
+function th(text, cls){ const el=document.createElement("th"); if(cls) el.className=cls; el.textContent=text; return el; }
+
+function reviewRow(r, isAdmin){
+  const tr = document.createElement("tr");
+  if (r.hidden) tr.classList.add("is-hidden");
+  tr.dataset.id = r.id;
+
+  const dateTd = document.createElement("td");
+  dateTd.className = "c-date";
+  dateTd.textContent = fmtDate(r.date);
+  tr.appendChild(dateTd);
+
+  const nameTd = document.createElement("td");
+  nameTd.className = "c-name";
+  nameTd.textContent = r.name || "Anonymous";
+  if (isAdmin && r.hidden){
+    const tag = document.createElement("span");
+    tag.className = "tag-hidden"; tag.textContent = "hidden";
+    nameTd.appendChild(tag);
+  }
+  tr.appendChild(nameTd);
+
+  const commentTd = document.createElement("td");
+  commentTd.className = "c-comment";
+  commentTd.textContent = r.comment;      // textContent = safe against HTML/script in user input
+  tr.appendChild(commentTd);
+
+  if (isAdmin){
+    const actTd = document.createElement("td");
+    actTd.className = "c-actions";
+    actTd.appendChild(linkBtn("Edit", ()=>startEdit(tr, r)));
+    actTd.appendChild(linkBtn(r.hidden ? "Show" : "Hide", ()=>toggleHide(r)));
+    actTd.appendChild(linkBtn("Delete", ()=>removeReview(r), true));
+    tr.appendChild(actTd);
+  }
+  return tr;
+}
+
+function linkBtn(label, onClick, danger){
+  const b = document.createElement("button");
+  b.className = "link-btn" + (danger ? " danger" : "");
+  b.type = "button"; b.textContent = label; b.addEventListener("click", onClick);
+  return b;
+}
+
+/* ===================== SUBMIT ===================== */
+async function submitReview(){
+  const name = $("name").value.trim();
+  const comment = $("comment").value.trim();
+  const note = $("formNote");
+  if (!name || !comment){
+    note.textContent = "Please add your name and a reflection.";
+    return;
+  }
+  const btn = $("submitBtn");
+  btn.disabled = true; note.textContent = "Sharing…";
+
+  const review = { id: uid(), date: new Date().toISOString(), name, comment, hidden:false };
+
+  try{
+    if (DEMO){ demoData.unshift(review); }
+    else {
+      const res = await call({ action:"create", name, comment });
+      if (!(res && res.ok)) throw (res && res.error) || "error";
+    }
+    $("name").value = ""; $("comment").value = ""; $("count").textContent = "0";
+    note.textContent = "";
+    toast("Thank you — your reflection is live.");
+    await loadReviews();
+    document.getElementById("reviews").scrollIntoView({behavior:"smooth", block:"start"});
+  }catch(err){
+    note.textContent = (typeof err === "string" ? err : "Something went wrong. Please try again.");
+  }finally{
+    btn.disabled = false;
+  }
+}
+
+/* ===================== ADMIN ACTIONS ===================== */
+function startEdit(tr, r){
+  const cell = tr.querySelector(".c-comment");
+  cell.innerHTML = "";
+  const ta = document.createElement("textarea");
+  ta.className = "edit-area"; ta.maxLength = CONFIG.maxComment; ta.value = r.comment;
+  const controls = document.createElement("div");
+  controls.className = "edit-controls";
+  const save = document.createElement("button");
+  save.className = "link-btn"; save.type="button"; save.textContent = "Save";
+  const cancel = document.createElement("button");
+  cancel.className = "link-btn"; cancel.type="button"; cancel.textContent = "Cancel";
+  controls.appendChild(cancel); controls.appendChild(save);
+  cell.appendChild(ta); cell.appendChild(controls);
+  ta.focus();
+
+  cancel.addEventListener("click", loadReviews);
+  save.addEventListener("click", async ()=>{
+    const val = ta.value.trim();
+    if (!val){ ta.focus(); return; }
+    save.disabled = true; save.textContent = "Saving…";
+    try{
+      if (DEMO){ const d = demoData.find(x=>x.id===r.id); if (d) d.comment = val; }
+      else{
+        const res = await call({ action:"edit", id:r.id, comment:val, admin:ADMIN_KEY });
+        if (!(res && res.ok)) throw 0;
+      }
+      toast("Reflection updated."); await loadReviews();
+    }catch(e){ save.disabled=false; save.textContent="Save"; toast("Couldn't save. Try again."); }
+  });
+}
+
+async function toggleHide(r){
+  try{
+    if (DEMO){ const d = demoData.find(x=>x.id===r.id); if (d) d.hidden = !d.hidden; }
+    else{
+      const res = await call({ action:"hide", id:r.id, hidden: (!r.hidden).toString(), admin:ADMIN_KEY });
+      if (!(res && res.ok)) throw 0;
+    }
+    toast(r.hidden ? "Reflection is visible again." : "Reflection hidden from visitors.");
+    await loadReviews();
+  }catch(e){ toast("Couldn't update. Try again."); }
+}
+
+async function removeReview(r){
+  if (!confirm("Delete this reflection permanently? This can't be undone.")) return;
+  try{
+    if (DEMO){ demoData = demoData.filter(x=>x.id!==r.id); }
+    else{
+      const res = await call({ action:"delete", id:r.id, admin:ADMIN_KEY });
+      if (!(res && res.ok)) throw 0;
+    }
+    toast("Reflection deleted."); await loadReviews();
+  }catch(e){ toast("Couldn't delete. Try again."); }
+}
+
+/* ---------- admin unlock ---------- */
+async function unlockAdmin(key){
+  const msg = $("adminMsg");
+  if (!key){ msg.textContent = "Enter your passcode."; return; }
+  msg.textContent = "Checking…";
+  if (DEMO){
+    ADMIN_KEY = key; afterUnlock(); msg.innerHTML = '<span class="admin-live">Preview moderation on.</span>';
+    await loadReviews(); return;
+  }
+  try{
+    const res = await call({ action:"list", admin:key });
+    if (res && res.ok && res.admin){
+      ADMIN_KEY = key; afterUnlock();
+      msg.innerHTML = '<span class="admin-live">Moderation unlocked.</span>';
+      renderReviews(res.reviews || []);
+    } else {
+      msg.textContent = "That passcode didn't match.";
+    }
+  }catch(e){ msg.textContent = "Couldn't verify right now. Try again."; }
+}
+function afterUnlock(){
+  $("adminKey").style.display = "none";
+  $("adminForm").querySelector('button[type=submit]').style.display = "none";
+  $("adminLock").style.display = "";
+}
+function lockAdmin(){
+  ADMIN_KEY = null;
+  $("adminKey").style.display = ""; $("adminKey").value = "";
+  $("adminForm").querySelector('button[type=submit]').style.display = "";
+  $("adminLock").style.display = "none";
+  $("adminMsg").textContent = "";
+  loadReviews();
+}
+
+/* ---------- utilities ---------- */
+function uid(){ return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,7); }
+function visibleFor(list){ return ADMIN_KEY ? list : list.filter(r=>!r.hidden); }
+function sortDesc(list){ return [...list].sort((a,b)=>(b.date||"").localeCompare(a.date||"")); }
+
+function seedDemo(){
+  const day = 86400000, now = Date.now();
+  return [
+    { id:uid(), date:new Date(now-2*day).toISOString(), name:"Grace Lim", hidden:false,
+      comment:"I read the last chapter twice. \u201CFrom the mirror to the door\u201D finally gave me language for the shift I've been feeling — from studying myself to actually stepping toward people. Deeply grateful." },
+    { id:uid(), date:new Date(now-9*day).toISOString(), name:"Daniel (seminar, KL)", hidden:false,
+      comment:"The seminar cracked something open. I came in thinking emotional intelligence was a skill to master; I left seeing it as a relationship to tend. Thank you, Winston." },
+    { id:uid(), date:new Date(now-21*day).toISOString(), name:"Priya", hidden:false,
+      comment:"Honest, warm, and never preachy. The reflection prompts were the part I kept returning to." }
+  ];
+}
+
+/* ===================== WIRE UP ===================== */
+$("comment").addEventListener("input", (e)=>{ $("count").textContent = e.target.value.length; });
+$("submitBtn").addEventListener("click", submitReview);
+$("comment").addEventListener("keydown", (e)=>{
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") submitReview();
+});
+$("adminToggle").addEventListener("click", ()=>{
+  const p = $("adminPanel"), open = p.classList.toggle("open");
+  $("adminToggle").setAttribute("aria-expanded", open ? "true" : "false");
+  if (open) $("adminKey").focus();
+});
+$("adminForm").addEventListener("submit", (e)=>{ e.preventDefault(); unlockAdmin($("adminKey").value.trim()); });
+$("adminLock").addEventListener("click", lockAdmin);
+
+if (DEMO){
+  showBanner('<strong>Preview mode.</strong> Reflections here are saved on this screen only, so you can try posting, editing, hiding and deleting before going live. To make it a real shared wall, connect your Google Sheet &mdash; see <em>SETUP.md</em>. (Preview admin passcode: type anything.)');
+}
+loadReviews();
+</script>
+</body>
+</html>

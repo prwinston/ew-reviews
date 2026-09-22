@@ -1,21 +1,3 @@
-/**
- * Emotionally Whole — Reviews backend
- * Google Apps Script Web App backed by a Google Sheet.
- *
- * SETUP (once):
- *   1. Create a Google Sheet. Extensions ▸ Apps Script.
- *   2. Delete the sample code, paste this whole file in.
- *   3. Change ADMIN_KEY below to your own secret passcode.
- *   4. Deploy ▸ New deployment ▸ type "Web app".
- *        Execute as: Me
- *        Who has access: Anyone
- *   5. Copy the Web app URL (ends in /exec) into CONFIG.endpoint in index.html.
- *
- * The sheet ("Reviews") is created automatically on first use. You can also
- * moderate straight in the sheet: edit the comment cell, set hidden to TRUE
- * to hide a row from visitors, or delete the row to remove it.
- */
-
 const SHEET_NAME  = 'Reviews';
 const ADMIN_KEY   = 'change-this-to-a-long-secret';  // <-- set your own admin passcode
 const MAX_COMMENT = 1500;

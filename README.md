@@ -39,6 +39,26 @@ Sheet, no server.
 However you gather reviews (email, in person, from a bookstore), you type the good
 ones into `reviews.json`, commit, and push.
 
+## EW Masterclass participant reviews
+
+A second section on the page, **EW Masterclass Participant Reviews**, reads from
+`masterclass-reviews.json`. Same format as `reviews.json`, plus an optional
+`event` line shown under the name:
+
+```json
+[
+  {
+    "name": "Pastor Grace T.",
+    "event": "EW Masterclass · JEN Hotel, Penang · 19 Oct 2026",
+    "rating": 5,
+    "date": "2026-10-19",
+    "text": "Three hours that gave our leadership team a shared language."
+  }
+]
+```
+
+If the file is empty, the section says reviews will appear after the next Masterclass.
+
 ## Deploy the page (Cloudflare Pages)
 
 1. Push this folder to its own GitHub repo.

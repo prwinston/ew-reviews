@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reader Reviews — Emotionally Whole | Winston H.K. Chew</title>
-<meta name="description" content="Read what readers are saying about Emotionally Whole by Winston H.K. Chew, and leave your own five-star rating and reflection.">
+<title>Reviews — Emotionally Whole | Winston H.K. Chew</title>
+<meta name="description" content="Reviews of Emotionally Whole by Winston H.K. Chew, from EW Masterclass participants and readers of the book.">
 <link rel="canonical" href="https://reviews.emotionallywhole.com/">
 <meta name="robots" content="index,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,29 +97,22 @@
       <div class="buy-drop">
         <a href="https://www.amazon.com/dp/B0HDDK3DB3" target="_blank" rel="noopener">Amazon</a>
         <a href="https://www.canaanland.com.my/SKU-A-9786299271000-UNIT-46474?search=emotionally%" target="_blank" rel="noopener">Canaanland Bookstore <span>Malaysia</span></a>
-        <div style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--vellum);padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;">Methodist Book Room <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--vellum-dim);">In store</span></div>
-        <div style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--vellum);padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;">Glad Sounds Bookstore <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--vellum-dim);">In store</span></div>
-        <div style="font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--vellum);padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;">Precious Pages Resources <span style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--vellum-dim);">In store</span></div>
+        <a href="https://methodistbookroom.com/emotionally-whole" target="_blank" rel="noopener">Methodist Book Room</a>
+        <a href="https://www.gladsounds.com.my/products/emotionally-wholezo-from-the-mirror-to-the-door/120689/" target="_blank" rel="noopener">Glad Sounds Bookstore</a>
+        <a href="https://www.preciouspages.com.my/pd-emotionally-whole-from-the-mirror-to-the-door.cfm" target="_blank" rel="noopener">Precious Pages Resources</a>
       </div>
     </div>
   </div>
 </nav>
 
 <div class="wrap">
-  <div class="head">
-    <span class="eyebrow">Reader Reviews</span>
-    <h1>What readers are finding</h1>
-    <p>Reflections from readers of <em>Emotionally Whole</em>.</p>
-    <div class="summary" id="summary" hidden>
-      <div class="avg" id="avg">—</div>
-      <div>
-        <div class="stars" id="avgStars"></div>
-        <div class="count" id="count"></div>
-      </div>
-    </div>
-  </div>
-
   <div class="list-head">
+    <h2>EW Masterclass Participant Reviews</h2>
+    <span class="count" id="mcCount" style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--vellum-dim);"></span>
+  </div>
+  <div id="mcList"><p class="empty">Loading reviews…</p></div>
+
+  <div class="list-head" style="margin-top:9vh;">
     <h2>Reflections from readers</h2>
   </div>
   <div id="reviewList"><p class="empty">Loading reviews…</p></div>
@@ -131,6 +124,30 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':
 const stars = n => "★★★★★".slice(0,n) + "☆☆☆☆☆".slice(0,5-n);
 const fmtDate = d => { const t = new Date(d); return isNaN(t) ? "" : t.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}); };
 
+/* masterclass reviews from masterclass-reviews.json */
+async function loadMC(){
+  const list = $("#mcList");
+  let items = [];
+  try{
+    const res = await fetch("masterclass-reviews.json?v=" + Date.now());
+    if(res.ok){ const d = await res.json(); items = Array.isArray(d) ? d : (d.reviews || []); }
+  }catch(err){}
+  if(!items.length){ list.innerHTML = '<p class="empty">Participant reviews will appear here after the next Masterclass.</p>'; return; }
+  const avg = items.reduce((s,r)=>s+(+r.rating||0),0)/items.length;
+  $("#mcCount").textContent = items.length + (items.length===1?" review":" reviews");
+  items.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  list.innerHTML = items.map(r => `
+    <div class="review">
+      <div class="top">
+        <div><span class="name">${esc(r.name)}</span>${r.event?`<div class="date" style="margin-top:4px;">${esc(r.event)}</div>`:''}</div>
+        <div style="text-align:right">
+          <div class="date">${fmtDate(r.date)}</div>
+        </div>
+      </div>
+      <div class="text">${esc(r.text)}</div>
+    </div>`).join("");
+}
+
 /* render published reviews from reviews.json (curated by the author) */
 async function load(){
   const list = $("#reviewList");
@@ -141,25 +158,20 @@ async function load(){
     render(Array.isArray(reviews) ? reviews : (reviews.reviews || []));
   }catch(err){
     list.innerHTML = '<p class="empty">No reviews yet — yours could be the first.</p>';
-    $("#summary").hidden = true;
-  }
+    }
 }
 
 function render(reviews){
   const list = $("#reviewList");
-  if(!reviews.length){ list.innerHTML = '<p class="empty">No reviews yet — yours could be the first.</p>'; $("#summary").hidden = true; return; }
+  if(!reviews.length){ list.innerHTML = '<p class="empty">No reviews yet — yours could be the first.</p>';  return; }
   const avg = reviews.reduce((s,r)=>s+(+r.rating||0),0)/reviews.length;
-  $("#summary").hidden = false;
-  $("#avg").textContent = avg.toFixed(1);
-  $("#avgStars").textContent = stars(Math.round(avg));
-  $("#count").textContent = reviews.length + (reviews.length===1?" review":" reviews");
+  
   reviews.sort((a,b)=> new Date(b.date) - new Date(a.date));
   list.innerHTML = reviews.map(r => `
     <div class="review">
       <div class="top">
         <div><span class="name">${esc(r.name)}</span></div>
         <div style="text-align:right">
-          <div class="rstars">${stars(Math.max(1,Math.min(5,+r.rating||0)))}</div>
           <div class="date">${fmtDate(r.date)}</div>
         </div>
       </div>
@@ -168,6 +180,11 @@ function render(reviews){
 }
 
 load();
+loadMC();
 </script>
+<footer style="border-top:1px solid var(--hair, rgba(233,225,206,0.14));padding:5vh 8vw;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono, monospace);font-size:12px;letter-spacing:.06em;color:var(--vellum-dim, #B7AD95);">
+  <span>© 2026 Winston H.K. Chew</span>
+  <span style="display:flex;gap:18px;flex-wrap:wrap;"><a href="https://emotionallywhole.com/" style="color:inherit;">Emotionally Whole</a><a href="https://winstonchew.com/" target="_blank" rel="noopener" style="color:inherit;">winstonchew.com</a></span>
+</footer>
 </body>
 </html>

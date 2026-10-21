@@ -1,4 +1,4 @@
-# Emotionally Whole — Reviews (reviews.emotionallywhole.com)
+# Emotionally Whole — Reviews (ew-reviews.emotionallywhole.com)
 
 A standalone, **backend-free** reviews page. It simply displays the reviews you
 publish — you control the list entirely by editing one file. No form, no Google
@@ -64,7 +64,7 @@ If the file is empty, the section says reviews will appear after the next Master
 1. Push this folder to its own GitHub repo.
 2. Cloudflare → **Workers & Pages → Create → Pages → Connect to Git**, pick the repo.
    Framework preset **None**, build command blank, output directory **`/`**.
-3. **Custom domains → Set up a custom domain →** `reviews.emotionallywhole.com`
+3. **Custom domains → Set up a custom domain →** `ew-reviews.emotionallywhole.com`
    (the record is created for you since the zone is on your account).
 
 To publish new reviews later, edit `reviews.json`, commit, and push — Cloudflare
